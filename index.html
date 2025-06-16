@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SMC DOJO - Ninja Trading SMC</title>
+    <link rel="icon"
+        href="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/03fc7bb1-125b-4361-b7b9-a457cf2e044d.png"
+        type="image/svg+xml" />
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-pIVq6RsLPW8BrLaAwoIeKAlIa0T1T6Pq+83JoFVD+H8pCj45_125YZVefjK+a2AJpVrKyM8qkJR6OCaClgs3Kg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Reset & base */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #121212;
+            color: #eee;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* Variables */
+        :root {
+            --clr-accent: #ffcc00;
+            --clr-accent-hover: #e6b800;
+            --clr-bg-header: #1e1e1e;
+            --clr-bg-footer: #151515;
+            --clr-bg-section: rgba(30, 30, 30, 0.85);
+            --gap: 16px;
+            --radius: 12px;
+        }
+
+        /* Navbar */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--clr-bg-header);
+            border-bottom: 1px solid #333;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+        }
+
+        nav.navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 24px;
+            user-select: none;
+        }
+
+        nav.navbar h1 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--clr-accent), #b38f00);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        nav.navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 32px;
+            margin: 0;
+            padding: 0;
+            font-size: 1rem;
+        }
+
+        nav.navbar ul li a {
+            color: #ddd;
+            padding: 8px 12px;
+            border-radius: var(--radius);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        nav.navbar ul li a:hover,
+        nav.navbar ul li a.active {
+            background-color: var(--clr-accent);
+            color: #121212;
+            font-weight: 700;
+        }
+
+        /* Hero Section */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 48px;
+            overflow-x: hidden;
+        }
+
+        section.hero {
+            position: relative;
+            background: url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/dd77380b-602b-4a06-9a47-baabc5a52b0f.png') center/cover no-repeat;
+            border-radius: var(--radius);
+            padding: 80px 24px;
+            margin-top: 24px;
+            color: var(--clr-accent);
+            text-align: center;
+            box-shadow:
+                inset 0 0 80px rgb(255 204 0 / 0.15),
+                0 24px 48px rgb(0 0 0 / 0.6);
+        }
+
+        section.hero h2 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            max-width: 650px;
+            margin: 0 auto 20px;
+            line-height: 1.1;
+            text-shadow: 0 0 8px rgb(255 204 0 / 0.6);
+        }
+
+        section.hero p {
+            font-size: 1.3rem;
+            font-style: italic;
+            max-width: 550px;
+            margin: 0 auto;
+            text-shadow: 0 0 4px rgb(255 204 0 / 0.5);
+        }
+
+        /* Citation in hero */
+        section.hero .quote {
+            font-size: 1.15rem;
+            margin-bottom: 36px;
+            color: #fffbe6;
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        /* General section styling */
+        section {
+            background-color: var(--clr-bg-section);
+            border-radius: var(--radius);
+            padding: 32px 24px;
+            margin-top: 48px;
+            box-shadow: 0 8px 24px rgb(0 0 0 / 0.7);
+        }
+
+        section h3 {
+            color: var(--clr-accent);
+            margin-bottom: 24px;
+            font-weight: 800;
+            font-size: 1.8rem;
+            user-select: none;
+        }
+
+        section p {
+            font-size: 1.1rem;
+            color: #ddd;
+        }
+
+        /* Navigation for sections managed in JS */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Formations (catalogue) */
+        #formations .formations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 28px;
+        }
+
+        .formation-card {
+            background: #222;
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: 0 6px 18px rgb(0 0 0 / 0.6);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .formation-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgb(255 204 0 / 0.5);
+        }
+
+        .formation-card img {
+            width: 100%;
+            border-radius: var(--radius);
+            margin-bottom: 16px;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            box-shadow: 0 4px 10px rgb(255 204 0 / 0.35);
+        }
+
+        .formation-card h4 {
+            margin: 0 0 12px;
+            color: var(--clr-accent);
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        .formation-card p {
+            flex-grow: 1;
+            margin-bottom: 16px;
+            color: #ccc;
+            font-size: 1rem;
+            line-height: 1.3;
+        }
+
+        .formation-card .price {
+            font-weight: 700;
+            color: var(--clr-accent);
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+        }
+
+        .formation-card button.buy-button {
+            padding: 12px 16px;
+            background-color: var(--clr-accent);
+            color: #121212;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            align-self: flex-start;
+            box-shadow: 0 6px 12px rgb(255 204 0 / 0.7);
+        }
+
+        .formation-card button.buy-button:hover {
+            background-color: var(--clr-accent-hover);
+            box-shadow: 0 8px 20px rgb(230 184 0 / 0.9);
+        }
+
+        /* Blog articles preview */
+        #blog .articles-list {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .article-preview {
+            background: #222;
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            box-shadow: 0 5px 15px rgb(0 0 0 / 0.6);
+            transition: box-shadow 0.3s;
+        }
+
+        .article-preview:hover {
+            box-shadow: 0 12px 30px rgb(255 204 0 / 0.5);
+        }
+
+        .article-preview h4 {
+            margin: 0 0 10px;
+            color: var(--clr-accent);
+        }
+
+        .article-preview p {
+            color: #ccc;
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+
+        .article-preview a.read-more {
+            color: var(--clr-accent);
+            font-weight: 700;
+            font-size: 0.9rem;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        .article-preview a.read-more:hover {
+            border-color: var(--clr-accent);
+        }
+
+        /* Contact form */
+        #contact form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: var(--gap);
+        }
+
+        #contact form input,
+        #contact form textarea {
+            background-color: #1e1e1e;
+            border: 1px solid #444;
+            border-radius: var(--radius);
+            padding: 12px 14px;
+            color: #eee;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            resize: vertical;
+        }
+
+        #contact form input:focus,
+        #contact form textarea:focus {
+            border-color: var(--clr-accent);
+            outline: none;
+        }
+
+        #contact form button {
+            background-color: var(--clr-accent);
+            color: #121212;
+            font-weight: 700;
+            padding: 14px;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            box-shadow: 0 6px 16px rgb(255 204 0 / 0.7);
+            transition: background-color 0.3s;
+        }
+
+        #contact form button:hover {
+            background-color: var(--clr-accent-hover);
+            box-shadow: 0 8px 20px rgb(230 184 0 / 0.9);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--clr-bg-footer);
+            text-align: center;
+            padding: 20px 24px;
+            font-size: 0.9rem;
+            color: #ccc;
+            user-select: none;
+            margin-top: 48px;
+        }
+
+        footer a {
+            color: var(--clr-accent);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: var(--clr-accent-hover);
+        }
+
+        /* Paragraphe panier */
+        #cart-info {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background-color: var(--clr-bg-header);
+            color: var(--clr-accent);
+            padding: 12px 16px;
+            border-radius: var(--radius);
+            box-shadow: 0 6px 20px rgb(0 0 0 / 0.8);
+            font-weight: 700;
+            cursor: pointer;
+            user-select: none;
+            z-index: 1500;
+            transition: all 0.3s;
+        }
+
+        #cart-info:hover {
+            background-color: var(--clr-accent);
+            color: #121212;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav.navbar ul {
+                gap: 18px;
+                font-size: 0.95rem;
+            }
+
+            section.hero {
+                padding: 60px 16px;
+            }
+
+            section.hero h2 {
+                font-size: 2.2rem;
+            }
+
+            section.hero p,
+            section.hero .quote {
+                font-size: 1rem;
+            }
+
+            main {
+                padding: 0 16px 48px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav.navbar h1 {
+                font-size: 1.5rem;
+            }
+
+            nav.navbar ul {
+                gap: 14px;
+            }
+
+            section.hero h2 {
+                font-size: 1.7rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar" aria-label="Navigation principale">
+            <h1>SMC DOJO</h1>
+            <ul role="menubar" aria-label="Menu principal">
+                <li role="none"><a href="#" role="menuitem" class="nav-link active" data-target="accueil">Accueil</a>
+                </li>
+                <li role="none"><a href="#" role="menuitem" class="nav-link" data-target="formations">Formations</a>
+                </li>
+                <li role="none"><a href="#" role="menuitem" class="nav-link" data-target="blog">Blog</a></li>
+                <li role="none"><a href="#" role="menuitem" class="nav-link" data-target="contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <!-- Accueil -->
+        <section id="accueil" class="section-content">
+            <section class="hero" aria-label="Introduction SMC DOJO">
+                <h2>SMC DOJO - Maîtriser la liquidité comme un Ninja du marché</h2>
+                <p class="quote">"La liquidité est invisible mais toujours présente. Soyez précis comme un ninja."</p>
+                <p>Bienvenue dans le monde du trading SMC (Smart Money Concept), où la discipline, la précision et la
+                    connaissance de la liquidité laissée par les big boys vous permettent d’agir en market maker
+                    invisible.<br />
+                    Je suis Bazongo Jules César, alias <strong>ninja_pips</strong>, votre guide vers un trading de
+                    nouvelle génération.</p>
+            </section>
+            <section class="about" aria-labelledby="about-title">
+                <h3 id="about-title">À propos du formateur</h3>
+                <p>Bazongo Jules César, expert certifié en trading SMC, passionné par la discipline ninja dans le
+                    marché. Ma méthode s’appuie sur la lecture de la liquidité et la maîtrise des mouvements invisibles
+                    des grandes banques.</p>
+            </section>
+        </section>
+
+        <!-- Formations -->
+        <section id="formations" class="section-content hidden" aria-label="Catalogue des formations">
+            <h3>Nos formations SMC</h3>
+            <div class="formations-grid" role="list">
+                <article class="formation-card" role="listitem" aria-label="Formation initiation au trading SMC">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/544729c9-68e4-4c0c-9ed5-68c69c8a91b9.png"
+                        alt="Illustration stylisée initiation au trading SMC" />
+                    <h4>Initiation au Trading SMC</h4>
+                    <p>Découvrez les bases de la lecture de liquidité et comprenez les mouvements des big boys.</p>
+                    <div class="price" aria-label="Prix 99 euros">99€</div>
+                    <button class="buy-button" data-title="Initiation au Trading SMC" data-price="99"
+                        aria-label="Acheter initiation au trading SMC">Acheter</button>
+                </article>
+                <article class="formation-card" role="listitem" aria-label="Formation avancée trading liquidité ninja">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d6e18659-8504-451d-bee0-fe537e2e9bc7.png"
+                        alt="Illustration stylisée formation avancée trading liquidité ninja" />
+                    <h4>Trading Avancé & Liquidité Ninja</h4>
+                    <p>Maîtrisez la stratégie des market makers et optimisez votre discipline pour un trading précis.
+                    </p>
+                    <div class="price" aria-label="Prix 199 euros">199€</div>
+                    <button class="buy-button" data-title="Trading Avancé & Liquidité Ninja" data-price="199"
+                        aria-label="Acheter la formation avancée">Acheter</button>
+                </article>
+            </div>
+        </section>
+
+        <!-- Blog -->
+        <section id="blog" class="section-content hidden" aria-label="Articles de blog éducatifs">
+            <h3>Blog éducatif</h3>
+            <div class="articles-list">
+                <article class="article-preview" aria-labelledby="art1-title">
+                    <h4 id="art1-title">Manipulation du marché par les banques</h4>
+                    <p>Les grandes banques laissent des traces invisibles de liquidité. Comprendre ces marques permet
+                        d’anticiper les mouvements clés du marché...</p>
+                    <a href="#" class="read-more" tabindex="0" aria-label="Lire plus sur la manipulation du marché">Lire
+                        plus</a>
+                </article>
+                <article class="article-preview" aria-labelledby="art2-title">
+                    <h4 id="art2-title">Discipline et précision dans le trading ninja</h4>
+                    <p>La clé du succès est la discipline rigoureuse et la précision dans l’exécution des ordres, à
+                        l’image des ninjas invisibles...</p>
+                    <a href="#" class="read-more" tabindex="0"
+                        aria-label="Lire plus sur la discipline et précision">Lire plus</a>
+                </article>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="section-content hidden" aria-label="Formulaire de contact">
+            <h3>Contactez-moi</h3>
+            <form id="contactForm" aria-describedby="contact-desc">
+                <p id="contact-desc">Remplissez ce formulaire pour toute question ou demande.</p>
+                <input type="text" name="name" placeholder="Votre nom" required autocomplete="name" aria-required="true"
+                    aria-label="Nom complet" />
+                <input type="email" name="email" placeholder="Votre email" required autocomplete="email"
+                    aria-required="true" aria-label="Adresse email" />
+                <textarea name="message" rows="5" placeholder="Votre message" required aria-required="true"
+                    aria-label="Message"></textarea>
+                <button type="submit" aria-label="Envoyer le message">Envoyer</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Panier affichage (fixed) -->
+    <div id="cart-info" tabindex="0" aria-live="polite" aria-atomic="true" role="region" aria-label="Panier d'achat">
+        🛒 Panier : 0 article(s) - Total : 0€
+    </div>
+
+    <footer>
+        <p>
+            Suivez-moi sur les réseaux :&nbsp;
+            <a href="https://twitter.com/ninja_pips" target="_blank" rel="noopener" aria-label="Twitter ninja_pips">
+                <i class="fab fa-twitter" aria-hidden="true"></i> ninja_pips
+            </a>
+        </p>
+        <p>
+            &copy; 2024 SMC DOJO &nbsp;|&nbsp;
+            <a href="#" aria-label="Mentions légales">Mentions légales</a> &nbsp;|&nbsp;
+            <a href="#" aria-label="Liens rapides">Liens rapides</a>
+        </p>
+    </footer>
+
+    <script>
+        // Gestion navigation simple - affichage sections
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('.section-content');
+        const cartInfo = document.getElementById('cart-info');
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function updateCartDisplay() {
+            const count = cart.length;
+            const total = cart.reduce((acc, cur) => acc + Number(cur.price), 0);
+            cartInfo.textContent = `🛒 Panier : ${count} article(s) - Total : ${total}€`;
+        }
+
+        function showSection(id) {
+            sections.forEach((section) => {
+                section.classList.toggle('hidden', section.id !== id);
+            });
+            navLinks.forEach((link) => {
+                link.classList.toggle('active', link.dataset.target === id);
+            });
+            // Scroll to top on section change smoothly
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = e.target.dataset.target;
+                if (target) showSection(target);
+            });
+        });
+
+        // Gestion achat formation
+        document.body.addEventListener('click', e => {
+            if (e.target.classList.contains('buy-button')) {
+                const title = e.target.getAttribute('data-title');
+                const price = e.target.getAttribute('data-price');
+                cart.push({ title, price: Number(price) });
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartDisplay();
+                alert(`Formation "${title}" ajoutée au panier pour ${price}€`);
+            }
+        });
+
+        // Gestion submit formulaire contact
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', e => {
+                e.preventDefault();
+                // Simple validation via required fields
+                alert('Merci pour votre message ! Je vous répondrai rapidement.');
+                contactForm.reset();
+            });
+        }
+
+        // Initial display
+        updateCartDisplay();
+        showSection('accueil');
+
+        // Effet sonore sabre ninja optionnel à l'ouverture
+        window.addEventListener('load', () => {
+            try {
+                const audio = new Audio('https://actions.google.com/sounds/v1/foley/samurai_sword_swoosh.ogg');
+                audio.volume = 0.3;
+                audio.play();
+            } catch { }
+        });
+    </script>
+</body>
+
+</html>
