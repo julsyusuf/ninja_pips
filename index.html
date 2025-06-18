@@ -1,609 +1,1008 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>SMP DOJO - Ninja Trading SMP</title>
-    <link rel="icon"
-        href="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/03fc7bb1-125b-4361-b7b9-a457cf2e044d.png"
-        type="image/svg+xml" />
-    <!-- Font Awesome CDN for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        integrity="sha512-pIVq6RsLPW8BrLaAwoIeKAlIa0T1T6Pq+83JoFVD+H8pCj45_125YZVefjK+a2AJpVrKyM8qkJR6OCaClgs3Kg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMP-Academy - Maîtrisez le Trading comme les Institutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* Reset & base */
-        *,
-        *::before,
-        *::after {
+        :root {
+            --primary-dark: #000000;
+            --secondary-dark: #1e1e1e;
+            --accent-blue: #00bfff;
+            --text-light: #ffffff;
+            --text-gray: #cccccc;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
 
         body {
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background-color: #121212;
-            color: #eee;
-            line-height: 1.5;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            line-height: 1.6;
             overflow-x: hidden;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
+        h1, h2, h3, h4, h5 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
         }
 
-        img {
-            max-width: 100%;
-            display: block;
-        }
-
-        /* Variables */
-        :root {
-            --clr-accent: #ffcc00;
-            --clr-accent-hover: #e6b800;
-            --clr-bg-header: #1e1e1e;
-            --clr-bg-footer: #151515;
-            --clr-bg-section: rgba(30, 30, 30, 0.85);
-            --gap: 16px;
-            --radius: 12px;
-        }
-
-        /* Navbar */
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background-color: var(--clr-bg-header);
-            border-bottom: 1px solid #333;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
-        }
-
-        nav.navbar {
+        .container {
+            width: 90%;
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: rgba(0, 0, 0, 0.8);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 24px;
-            user-select: none;
         }
 
-        nav.navbar h1 {
-            font-size: 1.8rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--clr-accent), #b38f00);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-        }
-
-        nav.navbar ul {
-            list-style: none;
+        .logo {
             display: flex;
-            gap: 32px;
-            margin: 0;
-            padding: 0;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(90deg, var(--accent-blue), #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-left: 10px;
+        }
+
+        .logo-icon {
+            color: var(--accent-blue);
+            font-size: 2rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
             font-size: 1rem;
+            position: relative;
+            transition: var(--transition);
         }
 
-        nav.navbar ul li a {
-            color: #ddd;
-            padding: 8px 12px;
-            border-radius: var(--radius);
-            transition: background-color 0.3s, color 0.3s;
+        nav ul li a:hover {
+            color: var(--accent-blue);
         }
 
-        nav.navbar ul li a:hover,
-        nav.navbar ul li a.active {
-            background-color: var(--clr-accent);
-            color: #121212;
-            font-weight: 700;
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-blue);
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--accent-blue), #0080ff);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 191, 255, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 191, 255, 0.5);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
         }
 
         /* Hero Section */
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px 48px;
-            overflow-x: hidden;
-        }
-
-        section.hero {
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
             position: relative;
-            background: url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/dd77380b-602b-4a06-9a47-baabc5a52b0f.png') center/cover no-repeat;
-            border-radius: var(--radius);
-            padding: 80px 24px;
-            margin-top: 24px;
-            color: var(--clr-accent);
-            text-align: center;
-            box-shadow:
-                inset 0 0 80px rgb(255 204 0 / 0.15),
-                0 24px 48px rgb(0 0 0 / 0.6);
+            overflow: hidden;
         }
 
-        section.hero h2 {
-            font-size: 2.8rem;
-            font-weight: 900;
-            max-width: 650px;
-            margin: 0 auto 20px;
-            line-height: 1.1;
-            text-shadow: 0 0 8px rgb(255 204 0 / 0.6);
+        .hero-content {
+            max-width: 700px;
+            z-index: 2;
+            animation: fadeInUp 1s ease;
         }
 
-        section.hero p {
-            font-size: 1.3rem;
-            font-style: italic;
-            max-width: 550px;
-            margin: 0 auto;
-            text-shadow: 0 0 4px rgb(255 204 0 / 0.5);
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
         }
 
-        /* Citation in hero */
-        section.hero .quote {
-            font-size: 1.15rem;
-            margin-bottom: 36px;
-            color: #fffbe6;
-            font-weight: 500;
-            font-style: normal;
-        }
-
-        /* General section styling */
-        section {
-            background-color: var(--clr-bg-section);
-            border-radius: var(--radius);
-            padding: 32px 24px;
-            margin-top: 48px;
-            box-shadow: 0 8px 24px rgb(0 0 0 / 0.7);
-        }
-
-        section h3 {
-            color: var(--clr-accent);
-            margin-bottom: 24px;
-            font-weight: 800;
-            font-size: 1.8rem;
-            user-select: none;
-        }
-
-        section p {
-            font-size: 1.1rem;
-            color: #ddd;
-        }
-
-        /* Navigation for sections managed in JS */
-        .hidden {
-            display: none !important;
-        }
-
-        /* Formations (catalogue) */
-        #formations .formations-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 28px;
-        }
-
-        .formation-card {
-            background: #222;
-            border-radius: var(--radius);
-            padding: 20px;
-            box-shadow: 0 6px 18px rgb(0 0 0 / 0.6);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .formation-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 24px rgb(255 204 0 / 0.5);
-        }
-
-        .formation-card img {
-            width: 100%;
-            border-radius: var(--radius);
-            margin-bottom: 16px;
-            aspect-ratio: 16 / 9;
-            object-fit: cover;
-            box-shadow: 0 4px 10px rgb(255 204 0 / 0.35);
-        }
-
-        .formation-card h4 {
-            margin: 0 0 12px;
-            color: var(--clr-accent);
-            font-weight: 700;
-            font-size: 1.3rem;
-        }
-
-        .formation-card p {
-            flex-grow: 1;
-            margin-bottom: 16px;
-            color: #ccc;
-            font-size: 1rem;
-            line-height: 1.3;
-        }
-
-        .formation-card .price {
-            font-weight: 700;
-            color: var(--clr-accent);
+        .hero p {
             font-size: 1.2rem;
-            margin-bottom: 16px;
+            margin-bottom: 30px;
+            color: var(--text-gray);
+            max-width: 600px;
         }
 
-        .formation-card button.buy-button {
-            padding: 12px 16px;
-            background-color: var(--clr-accent);
-            color: #121212;
-            border: none;
-            border-radius: var(--radius);
+        .hero .cta-button {
+            font-size: 1.1rem;
+            padding: 15px 40px;
+        }
+
+        .trading-chart {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50%;
+            height: 200px;
+            background: url('https://images.unsplash.com/photo-1591063712610-182b9b1b0a1a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            border-top-left-radius: 20px;
+            opacity: 0.8;
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background-color: var(--secondary-dark);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            display: inline-block;
+            background: linear-gradient(90deg, var(--accent-blue), #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent-blue);
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--text-gray);
+        }
+
+        .about-image {
+            flex: 1;
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .values {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .value-card {
+            background: rgba(30, 30, 30, 0.7);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-blue);
+        }
+
+        .value-card i {
+            font-size: 2.5rem;
+            color: var(--accent-blue);
+            margin-bottom: 20px;
+        }
+
+        .value-card h4 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            background-color: var(--primary-dark);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--secondary-dark);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 191, 255, 0.2);
+            border-color: var(--accent-blue);
+        }
+
+        .service-icon {
+            height: 200px;
+            background: linear-gradient(135deg, #001a33, #003366);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--accent-blue);
+        }
+
+        .service-content {
+            padding: 30px;
+        }
+
+        .service-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .service-content p {
+            color: var(--text-gray);
+            margin-bottom: 20px;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 100px 0;
+            background-color: var(--secondary-dark);
+        }
+
+        .pricing-table {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .pricing-card {
+            background: var(--primary-dark);
+            border-radius: 10px;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 191, 255, 0.2);
+            border-color: var(--accent-blue);
+        }
+
+        .pricing-card.popular {
+            border: 2px solid var(--accent-blue);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.popular:hover {
+            transform: scale(1.08) translateY(-10px);
+        }
+
+        .popular-tag {
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: var(--accent-blue);
+            color: white;
+            padding: 5px 30px;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .price {
+            font-size: 3rem;
             font-weight: 700;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            align-self: flex-start;
-            box-shadow: 0 6px 12px rgb(255 204 0 / 0.7);
+            margin-bottom: 30px;
+            color: var(--accent-blue);
         }
 
-        .formation-card button.buy-button:hover {
-            background-color: var(--clr-accent-hover);
-            box-shadow: 0 8px 20px rgb(230 184 0 / 0.9);
+        .price span {
+            font-size: 1rem;
+            color: var(--text-gray);
         }
 
-        /* Blog articles preview */
-        #blog .articles-list {
+        .features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .features li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-gray);
+        }
+
+        .features li:last-child {
+            border-bottom: none;
+        }
+
+        .features li i {
+            color: var(--accent-blue);
+            margin-right: 10px;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background-color: var(--primary-dark);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+
+        .contact-info {
             display: flex;
             flex-direction: column;
-            gap: 32px;
+            gap: 30px;
         }
 
-        .article-preview {
-            background: #222;
-            border-radius: var(--radius);
-            padding: 16px 20px;
-            box-shadow: 0 5px 15px rgb(0 0 0 / 0.6);
-            transition: box-shadow 0.3s;
-        }
-
-        .article-preview:hover {
-            box-shadow: 0 12px 30px rgb(255 204 0 / 0.5);
-        }
-
-        .article-preview h4 {
-            margin: 0 0 10px;
-            color: var(--clr-accent);
-        }
-
-        .article-preview p {
-            color: #ccc;
-            font-size: 1rem;
-            margin-bottom: 12px;
-        }
-
-        .article-preview a.read-more {
-            color: var(--clr-accent);
-            font-weight: 700;
-            font-size: 0.9rem;
-            border-bottom: 2px solid transparent;
-            transition: border-color 0.3s;
-        }
-
-        .article-preview a.read-more:hover {
-            border-color: var(--clr-accent);
-        }
-
-        /* Contact form */
-        #contact form {
-            max-width: 500px;
-            margin: 0 auto;
+        .contact-method {
             display: flex;
-            flex-direction: column;
-            gap: var(--gap);
+            align-items: center;
+            gap: 20px;
         }
 
-        #contact form input,
-        #contact form textarea {
-            background-color: #1e1e1e;
-            border: 1px solid #444;
-            border-radius: var(--radius);
-            padding: 12px 14px;
-            color: #eee;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-            resize: vertical;
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--secondary-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--accent-blue);
         }
 
-        #contact form input:focus,
-        #contact form textarea:focus {
-            border-color: var(--clr-accent);
+        .contact-text h4 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+
+        .contact-text p, .contact-text a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .contact-text a:hover {
+            color: var(--accent-blue);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--secondary-dark);
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--accent-blue);
+            transform: translateY(-5px);
+        }
+
+        .contact-form {
+            background: var(--secondary-dark);
+            padding: 40px;
+            border-radius: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            color: var(--text-light);
+            font-family: 'Roboto', sans-serif;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
             outline: none;
+            border-color: var(--accent-blue);
         }
 
-        #contact form button {
-            background-color: var(--clr-accent);
-            color: #121212;
-            font-weight: 700;
-            padding: 14px;
-            border: none;
-            border-radius: var(--radius);
-            cursor: pointer;
-            box-shadow: 0 6px 16px rgb(255 204 0 / 0.7);
-            transition: background-color 0.3s;
-        }
-
-        #contact form button:hover {
-            background-color: var(--clr-accent-hover);
-            box-shadow: 0 8px 20px rgb(230 184 0 / 0.9);
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
         }
 
         /* Footer */
         footer {
-            background-color: var(--clr-bg-footer);
+            background: var(--secondary-dark);
+            padding: 50px 0 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent-blue);
+        }
+
+        .footer-column p {
+            color: var(--text-gray);
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-blue);
+        }
+
+        .copyright {
             text-align: center;
-            padding: 20px 24px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-gray);
             font-size: 0.9rem;
-            color: #ccc;
-            user-select: none;
-            margin-top: 48px;
         }
 
-        footer a {
-            color: var(--clr-accent);
-            font-weight: 600;
-            transition: color 0.3s;
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        footer a:hover {
-            color: var(--clr-accent-hover);
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-image {
+                margin-top: 30px;
+            }
         }
 
-        /* Paragraphe panier */
-        #cart-info {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            background-color: var(--clr-bg-header);
-            color: var(--clr-accent);
-            padding: 12px 16px;
-            border-radius: var(--radius);
-            box-shadow: 0 6px 20px rgb(0 0 0 / 0.8);
-            font-weight: 700;
-            cursor: pointer;
-            user-select: none;
-            z-index: 1500;
-            transition: all 0.3s;
-        }
-
-        #cart-info:hover {
-            background-color: var(--clr-accent);
-            color: #121212;
-        }
-
-        /* Responsive */
         @media (max-width: 768px) {
-            nav.navbar ul {
-                gap: 18px;
-                font-size: 0.95rem;
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--secondary-dark);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
             }
-
-            section.hero {
-                padding: 60px 16px;
+            
+            nav ul.show {
+                display: flex;
             }
-
-            section.hero h2 {
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
                 font-size: 2.2rem;
             }
-
-            section.hero p,
-            section.hero .quote {
+            
+            .hero p {
                 font-size: 1rem;
             }
-
-            main {
-                padding: 0 16px 48px;
+            
+            .trading-chart {
+                display: none;
             }
         }
 
-        @media (max-width: 480px) {
-            nav.navbar h1 {
-                font-size: 1.5rem;
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 1.8rem;
             }
-
-            nav.navbar ul {
-                gap: 14px;
+            
+            .section-title h2 {
+                font-size: 2rem;
             }
-
-            section.hero h2 {
-                font-size: 1.7rem;
+            
+            .service-card, .pricing-card {
+                margin-bottom: 30px;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
-
 <body>
+    <!-- Header -->
     <header>
-        <nav class="navbar" aria-label="Navigation principale">
-            <h1>SMP DOJO</h1>
-            <ul role="menubar" aria-label="Menu principal">
-                <li role="none"><a href="#" role="menuitem" class="nav-link active" data-target="accueil">Accueil</a>
-                </li>
-                <li role="none"><a href="#" role="menuitem" class="nav-link" data-target="formations">Formations</a>
-                </li>
-                <li role="none"><a href="#" role="menuitem" class="nav-link" data-target="blog">Blog</a></li>
-                <li role="none"><a href="#" role="menuitem" class="nav-link" data-target="contact">Contact</a></li>
-            </ul>
-        </nav>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-chart-line logo-icon"></i>
+                <h1>SMP-Academy</h1>
+            </div>
+            <nav>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul>
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#apropos">À propos</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#tarifs">Tarifs</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
-    <main>
-        <!-- Accueil -->
-        <section id="accueil" class="section-content">
-            <section class="hero" aria-label="Introduction SMC DOJO">
-                <h2>SMP DOJO - Maîtriser la liquidité comme un Ninja du marché</h2>
-                <p class="quote">"La liquidité est invisible mais toujours présente. Soyez précis comme un ninja."</p>
-                <p>Bienvenue dans le monde du trading SMP (Smart Money Précision), où la discipline, la précision et la
-                    connaissance de la liquidité laissée par les big boys vous permettent d’agir en market maker
-                    invisible.<br />
-                    Je suis B.Jules César, alias <strong>ninja_pips</strong>, votre guide vers un trading de
-                    nouvelle génération.</p>
-            </section>
-            <section class="about" aria-labelledby="about-title">
-                <h3 id="about-title">À propos du formateur</h3>
-                <p>B.Jules César, expert certifié en trading SMP, passionné par la discipline ninja dans le
-                    marché. Ma méthode s’appuie sur la lecture de la liquidité et la maîtrise des mouvements invisibles
-                    des grandes banques.</p>
-            </section>
-        </section>
 
-        <!-- Formations -->
-        <section id="formations" class="section-content hidden" aria-label="Catalogue des formations">
-            <h3>Nos formations SMP</h3>
-            <div class="formations-grid" role="list">
-                <article class="formation-card" role="listitem" aria-label="Formation initiation Ninja Concept Trading">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/544729c9-68e4-4c0c-9ed5-68c69c8a91b9.png"
-                        alt="Illustration stylisée initiation au trading SMC" />
-                    <h4>Initiation Ninja Concept Trading</h4>
-                    <p>Découvrez les bases de la lecture de liquidité et comprenez les mouvements des big boys.</p>
-                    <div class="price" aria-label="Prix 99 euros">99€</div>
-                    <button class="buy-button" data-title="Initiation au Trading SMC" data-price="99"
-                        aria-label="Acheter initiation Ninja Concept Trading">Acheter</button>
-                </article>
-                <article class="formation-card" role="listitem" aria-label="Formation avancée trading liquidité ninja">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d6e18659-8504-451d-bee0-fe537e2e9bc7.png"
-                        alt="Illustration stylisée formation avancée trading liquidité ninja" />
-                    <h4>Trading Avancé & Liquidité Ninja</h4>
-                    <p>Maîtrisez la stratégie des market makers et optimisez votre discipline pour un trading précis.
-                    </p>
-                    <div class="price" aria-label="Prix 199 euros">199€</div>
-                    <button class="buy-button" data-title="Trading Avancé & Liquidité Ninja" data-price="199"
-                        aria-label="Acheter la formation avancée">Acheter</button>
-                </article>
+    <!-- Hero Section -->
+    <section id="accueil" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Apprenez à trader comme les institutions</h1>
+                <p>Découvrez la méthode SMP - Smart Money Précision développée par Ninja Pips pour maîtriser les marchés financiers avec précision et discipline.</p>
+                <a href="#tarifs" class="cta-button">Commencer la formation</a>
             </div>
-        </section>
+        </div>
+        <div class="trading-chart"></div>
+    </section>
 
-        <!-- Blog -->
-        <section id="blog" class="section-content hidden" aria-label="Articles de blog éducatifs">
-            <h3>Blog éducatif</h3>
-            <div class="articles-list">
-                <article class="article-preview" aria-labelledby="art1-title">
-                    <h4 id="art1-title">Manipulation du marché par les banques</h4>
-                    <p>Les grandes banques laissent des traces invisibles de liquidité. Comprendre ces marques permet
-                        d’anticiper les mouvements clés du marché...</p>
-                    <a href="#" class="read-more" tabindex="0" aria-label="Lire plus sur la manipulation du marché">Lire
-                        plus</a>
-                </article>
-                <article class="article-preview" aria-labelledby="art2-title">
-                    <h4 id="art2-title">Discipline et précision dans le trading ninja</h4>
-                    <p>La clé du succès est la discipline rigoureuse et la précision dans l’exécution des ordres, à
-                        l’image des ninjas invisibles...</p>
-                    <a href="#" class="read-more" tabindex="0"
-                        aria-label="Lire plus sur la discipline et précision">Lire plus</a>
-                </article>
+    <!-- About Section -->
+    <section id="apropos" class="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>À propos de SMP-Academy</h2>
             </div>
-        </section>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>L'histoire de Ninja Pips</h3>
+                    <p>Ninja Pips a commencé son parcours dans le trading à l'âge de 15 ans, juste après avoir obtenu son brevet. Motivé par le désir de liberté financière, il a étudié intensément les différentes méthodes de trading, de la Price Action au Smart Money Concepts.</p>
+                    <p>Après trois années de pratique rigoureuse et de développement de sa propre méthodologie, Ninja Pips est devenu un trader rentable. Sa méthode exclusive, le SMP - Smart Money Précision, repose sur la lecture des liquidités laissées par les banques et institutions financières.</p>
+                    <p>Aujourd'hui, Ninja Pips partage son expertise à travers SMP-Academy, formant une nouvelle génération de traders à sa méthode efficace, précise et à faible risque.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Ninja Pips - Fondateur de SMP-Academy">
+                </div>
+            </div>
+            
+            <div class="values">
+                <div class="value-card">
+                    <i class="fas fa-bullseye"></i>
+                    <h4>Mission</h4>
+                    <p>Éduquer les traders, les rendre rentables et former une nouvelle élite capable de naviguer les marchés avec confiance.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-eye"></i>
+                    <h4>Vision</h4>
+                    <p>Démocratiser le savoir institutionnel et rendre accessible les stratégies de trading les plus avancées.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-gem"></i>
+                    <h4>Valeurs</h4>
+                    <p>Précision, discipline, indépendance financière et transparence dans toutes nos formations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <!-- Contact -->
-        <section id="contact" class="section-content hidden" aria-label="Formulaire de contact">
-            <h3>Contactez-moi</h3>
-            <form id="contactForm" aria-describedby="contact-desc">
-                <p id="contact-desc">Remplissez ce formulaire pour toute question ou demande.</p>
-                <input type="text" name="name" placeholder="Votre nom" required autocomplete="name" aria-required="true"
-                    aria-label="Nom complet" />
-                <input type="email" name="email" placeholder="Votre email" required autocomplete="email"
-                    aria-required="true" aria-label="Adresse email" />
-                <textarea name="message" rows="5" placeholder="Votre message" required aria-required="true"
-                    aria-label="Message"></textarea>
-                <button type="submit" aria-label="Envoyer le message">Envoyer</button>
-            </form>
-        </section>
-    </main>
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nos Services</h2>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Masterclass en ligne</h3>
+                        <p>Sessions interactives en direct via Zoom/Discord où Ninja Pips enseigne sa méthode SMP en temps réel, avec analyse de marchés actuels.</p>
+                        <a href="#tarifs" class="cta-button">En savoir plus</a>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Formation SMP complète</h3>
+                        <p>Accès illimité à notre plateforme de formation avec modules vidéo, études de cas, outils exclusifs et communauté privée.</p>
+                        <a href="#tarifs" class="cta-button">En savoir plus</a>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Coaching personnalisé</h3>
+                        <p>Séances individuelles 1:1 avec Ninja Pips pour analyser votre trading, corriger vos erreurs et optimiser votre stratégie.</p>
+                        <a href="#tarifs" class="cta-button">En savoir plus</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- Panier affichage (fixed) -->
-    <div id="cart-info" tabindex="0" aria-live="polite" aria-atomic="true" role="region" aria-label="Panier d'achat">
-        🛒 Panier : 0 article(s) - Total : 0€
-    </div>
+    <!-- Pricing Section -->
+    <section id="tarifs" class="pricing">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nos Formations</h2>
+            </div>
+            
+            <div class="pricing-table">
+                <div class="pricing-card">
+                    <h3>Basique</h3>
+                    <div class="price">€497 <span>/ formation complète</span></div>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Accès à la formation SMP complète</li>
+                        <li><i class="fas fa-check"></i> Modules vidéo détaillés</li>
+                        <li><i class="fas fa-check"></i> Support par email</li>
+                        <li><i class="fas fa-times"></i> Sessions de trading en direct</li>
+                        <li><i class="fas fa-times"></i> Coaching individuel</li>
+                    </ul>
+                    <a href="#contact" class="cta-button">S'inscrire</a>
+                </div>
+                
+                <div class="pricing-card popular">
+                    <div class="popular-tag">Populaire</div>
+                    <h3>Professionnel</h3>
+                    <div class="price">€997 <span>/ accès annuel</span></div>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Tous les avantages Basique</li>
+                        <li><i class="fas fa-check"></i> Accès aux masterclass mensuelles</li>
+                        <li><i class="fas fa-check"></i> Analyse de marché hebdomadaire</li>
+                        <li><i class="fas fa-check"></i> Communauté privée Discord</li>
+                        <li><i class="fas fa-times"></i> Coaching individuel</li>
+                    </ul>
+                    <a href="#contact" class="cta-button">S'inscrire</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Premium</h3>
+                    <div class="price">€1997 <span>/ accès illimité</span></div>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Tous les avantages Professionnel</li>
+                        <li><i class="fas fa-check"></i> Coaching individuel mensuel</li>
+                        <li><i class="fas fa-check"></i> Accès aux outils exclusifs SMP</li>
+                        <li><i class="fas fa-check"></i> Revue de trading personnalisée</li>
+                        <li><i class="fas fa-check"></i> Support prioritaire 24/7</li>
+                    </ul>
+                    <a href="#contact" class="cta-button">S'inscrire</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contactez-nous</h2>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Email</h4>
+                            <a href="mailto:contact@smp-academy.com">contact@smp-academy.com</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>WhatsApp</h4>
+                            <a href="https://wa.me/33612345678">+33 6 12 34 56 78</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fab fa-telegram"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Telegram</h4>
+                            <a href="https://t.me/smpacademy">@smpacademy</a>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Nom complet</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" required></textarea>
+                        </div>
+                        <button type="submit" class="cta-button">Envoyer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
-        <p>
-            Suivez-moi sur les réseaux :&nbsp;
-            <a href="https://twitter.com/ninja_pips" target="_blank" rel="noopener" aria-label="Twitter ninja_pips">
-                <i class="fab fa-twitter" aria-hidden="true"></i> ninja_pips
-            </a>
-        </p>
-        <p>
-            &copy; 2024 SMP DOJO &nbsp;|&nbsp;
-            <a href="#" aria-label="Mentions légales">Mentions légales</a> &nbsp;|&nbsp;
-            <a href="#" aria-label="Liens rapides">Liens rapides</a>
-        </p>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>SMP-Academy</h3>
+                    <p>Formation professionnelle en trading basée sur la méthode exclusive SMP - Smart Money Précision développée par Ninja Pips.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Liens rapides</h3>
+                    <ul class="footer-links">
+                        <li><a href="#accueil">Accueil</a></li>
+                        <li><a href="#apropos">À propos</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#tarifs">Tarifs</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Mentions légales</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Conditions générales</a></li>
+                        <li><a href="#">Politique de confidentialité</a></li>
+                        <li><a href="#">Mentions légales</a></li>
+                        <li><a href="#">Avertissement sur les risques</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 SMP-Academy. Tous droits réservés. Développé par Ninja Pips.</p>
+            </div>
+        </div>
     </footer>
 
     <script>
-        // Gestion navigation simple - affichage sections
-        const navLinks = document.querySelectorAll('.nav-link');
-        const sections = document.querySelectorAll('.section-content');
-        const cartInfo = document.getElementById('cart-info');
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        function updateCartDisplay() {
-            const count = cart.length;
-            const total = cart.reduce((acc, cur) => acc + Number(cur.price), 0);
-            cartInfo.textContent = `🛒 Panier : ${count} article(s) - Total : ${total}€`;
-        }
-
-        function showSection(id) {
-            sections.forEach((section) => {
-                section.classList.toggle('hidden', section.id !== id);
-            });
-            navLinks.forEach((link) => {
-                link.classList.toggle('active', link.dataset.target === id);
-            });
-            // Scroll to top on section change smoothly
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('nav ul');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('show');
+        });
+        
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                const target = e.target.dataset.target;
-                if (target) showSection(target);
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                if (navMenu.classList.contains('show')) {
+                    navMenu.classList.remove('show');
+                }
             });
         });
-
-        // Gestion achat formation
-        document.body.addEventListener('click', e => {
-            if (e.target.classList.contains('buy-button')) {
-                const title = e.target.getAttribute('data-title');
-                const price = e.target.getAttribute('data-price');
-                cart.push({ title, price: Number(price) });
-                localStorage.setItem('cart', JSON.stringify(cart));
-                updateCartDisplay();
-                alert(`Formation "${title}" ajoutée au panier pour ${price}€`);
-            }
-        });
-
-        // Gestion submit formulaire contact
+        
+        // Form Submission
         const contactForm = document.getElementById('contactForm');
-        if (contactForm) {
-            contactForm.addEventListener('submit', e => {
-                e.preventDefault();
-                // Simple validation via required fields
-                alert('Merci pour votre message ! Je vous répondrai rapidement.');
+        
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            // Simple validation
+            if (name && email && message) {
+                // Here you would normally send the form data to a server
+                alert('Merci pour votre message ! Nous vous contacterons très rapidement.');
                 contactForm.reset();
-            });
-        }
-
-        // Initial display
-        updateCartDisplay();
-        showSection('accueil');
-
-        // Effet sonore sabre ninja optionnel à l'ouverture
-        window.addEventListener('load', () => {
-            try {
-                const audio = new Audio('https://actions.google.com/sounds/v1/foley/samurai_sword_swoosh.ogg');
-                audio.volume = 0.3;
-                audio.play();
-            } catch { }
+            } else {
+                alert('Veuillez remplir tous les champs du formulaire.');
+            }
         });
     </script>
 </body>
-
 </html>
