@@ -727,33 +727,150 @@
         <div class="trading-chart"></div>
     </section>
 
-    <!-- GIF Section 1 -->
-    <section class="gif-section">
-        <h2>STOP ! Tu n'en as pas marre de...</h2>
-        <img src="https://media.giphy.com/media/3o7aD2sa1g1g1g1g1g/giphy.gif"
-            alt="GIF montrant des frustrations en trading" />
-        <p>
-            ❌ Sorti en Stop Loss à chaque fois...<br />
-            ❌ Ne pas comprendre le biais directionnel...<br />
-            ❌ Ne pas avoir confiance en tes setups...<br />
-            ❌ Voir le prix partir sans toi...<br />
-            ❌ Ne pas gérer correctement ton risque...
-        </p>
+    <!-- Section GIF style "STOP!" / "Tu souhaites avoir" avec images et listes -->
+    <section class="gif-comparison-section">
+        <div class="container grid-two-columns">
+
+            <!-- Left side: top image -->
+            <div class="gif-image-wrapper">
+                <img src="ULTRA.gif" alt="Graphique trading zone Stop Loss" />
+            </div>
+
+            <!-- Right side: complaint list -->
+            <div class="gif-text-wrapper">
+                <h2>STOP ! Tu n'en as pas marre de...</h2>
+                <ul class="negative-list">
+                    <li><i class="fas fa-times-circle icon-negative"></i> sorti en Stop Loss à chaque fois...</li>
+                    <li><i class="fas fa-times-circle icon-negative"></i> ne pas comprendre le biais directionnel...
+                    </li>
+                    <li><i class="fas fa-times-circle icon-negative"></i> ne pas avoir confiance en tes setup...</li>
+                    <li><i class="fas fa-times-circle icon-negative"></i> voir le prix partir sans toi...</li>
+                    <li><i class="fas fa-times-circle icon-negative"></i> ne pas gérer correctement ton risque...</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="container grid-two-columns margin-top-large">
+
+            <!-- Left side: bottom image -->
+            <div class="gif-image-wrapper">
+                <img src="FX.gif" alt="Graphique trading zone entrées précises" />
+            </div>
+
+            <!-- Right side: wish list -->
+            <div class="gif-text-wrapper">
+                <h2>Tu souhaites avoir...</h2>
+                <ul class="positive-list">
+                    <li><i class="fas fa-check-circle icon-positive"></i> des entrées ultra précises...</li>
+                    <li><i class="fas fa-check-circle icon-positive"></i> une très bonne lecture du biais
+                        directionnel...</li>
+                    <li><i class="fas fa-check-circle icon-positive"></i> plus confiance en toi...</li>
+                    <li><i class="fas fa-check-circle icon-positive"></i> le bon timing...</li>
+                    <li><i class="fas fa-check-circle icon-positive"></i> une gestion du risque parfaite...</li>
+                </ul>
+                <p class="final-line">Tu es au bon endroit !</p>
+            </div>
+
+        </div>
     </section>
 
-    <!-- GIF Section 2 -->
-    <section class="gif-section">
-        <h2>Tu souhaites avoir...</h2>
-        <img src="jul.gif" alt="GIF montrant des réussites en trading" />
-        <p>
-            ✅ Des entrées ultra précises...<br />
-            ✅ Une très bonne lecture du biais directionnel...<br />
-            ✅ Plus confiance en toi...<br />
-            ✅ Le bon timing...<br />
-            ✅ Une gestion du risque parfaite...
-        </p>
-        <p>Tu es au bon endroit !</p>
-    </section>
+    <style>
+        .gif-comparison-section {
+            padding: 60px 20px;
+            background-color: #fefefe;
+            color: #121212;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .grid-two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .margin-top-large {
+            margin-top: 80px;
+        }
+
+        .gif-image-wrapper img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgb(0 191 255 / 0.2);
+            object-fit: contain;
+        }
+
+        .gif-text-wrapper h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        li {
+            font-weight: 400;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            display: flex;
+            align-items: center;
+        }
+
+        .icon-negative {
+            color: #e63946;
+            font-size: 1.5rem;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .icon-positive {
+            color: #2a9d8f;
+            font-size: 1.5rem;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .final-line {
+            margin-top: 30px;
+            font-weight: 600;
+            font-size: 1.3rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 840px) {
+            .grid-two-columns {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .gif-text-wrapper ul li {
+                justify-content: center;
+            }
+
+            .gif-text-wrapper h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+
+    <!-- Note: 
+- Les images utilisées ici (https://i.imgur.com/7W71eJc.png et https://i.imgur.com/zAxgjQp.png) sont des illustrations simplifiées avec zones sur graphique, similaires à votre exemple.
+- Remplacez par vos propres images si vous avez des fichiers réels.
+-->
+
+
 
     <!-- About Section -->
     <section id="apropos" class="about">
@@ -925,7 +1042,7 @@
                         </div>
                         <div class="contact-text">
                             <h4>WhatsApp</h4>
-                            <a href="http://wa.me/2250716531416">+225 0716531416</a>
+                            <a href="https://wa.me/33612345678">+33 6 12 34 56 78</a>
                         </div>
                     </div>
 
@@ -935,7 +1052,7 @@
                         </div>
                         <div class="contact-text">
                             <h4>Telegram</h4>
-                            <a href="https://t.me/SMPacademy7">@smpacademy</a>
+                            <a href="https://t.me/smpacademy">@smpacademy</a>
                         </div>
                     </div>
 
